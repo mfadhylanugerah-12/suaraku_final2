@@ -21,7 +21,6 @@ const DUMMY_BEM = {
 };
 
 // Daftar kata kasar sederhana untuk filter otomatis
-// (silakan tambah/sesuaikan sendiri kalau perlu)
 const BAD_WORDS = [
   "anjing", "bangsat", "brengsek", "bajingan", "kontol", "memek",
   "tai", "goblok", "tolol", "idiot", "bodoh banget", "sialan",
@@ -34,26 +33,27 @@ const LS_SESSION = "suaraku_session";
 
 /* ---------- HELPER: LOCALSTORAGE ---------- */
 
-function getReports() {
-  const data = localStorage.getItem(LS_REPORTS);
-  if (data) return JSON.parse(data);
+// Versi seed — naikkan angka ini setiap kali seed data diubah
+// agar browser lama otomatis mendapat data terbaru
+const SEED_VERSION = 2;
+const LS_SEED_VER  = "suaraku_seed_ver";
 
-  // Seed data dummy kalau localStorage masih kosong,
-  // biar tampilan dashboard/tracking gak kosong waktu pertama dicoba.
+function getReports() {
+  // Cek versi seed; kalau beda, reset localStorage dengan seed terbaru
+  const savedVer = parseInt(localStorage.getItem(LS_SEED_VER) || "0", 10);
+  const data = localStorage.getItem(LS_REPORTS);
+
+  if (data && savedVer >= SEED_VERSION) return JSON.parse(data);
+
   const seed = [
+    // ── Laporan milik Muhammad Fadhyl (51024306) ──────────────────
     {
       ticket: "SRK-2026-0001",
-      nama: "Muhammad Fadhyl A. P.",
-      nim: "51024306",
-      anonim: false,
-      kategori: "Fasilitas",
-      jenis: "Aduan",
+      nama: "Muhammad Fadhyl A. P.", nim: "51024306", _ownerNim: "51024306",
+      anonim: false, kategori: "Fasilitas", jenis: "Aduan",
       judul: "AC ruang kelas lab 3 mati",
       isi: "AC di ruang kelas lab 3 sudah 2 minggu tidak berfungsi, membuat ruangan sangat panas saat praktikum siang.",
-      files: [],
-      status: "diproses",
-      flagged: false,
-      tanggal: "2026-06-24T09:12:00",
+      files: [], status: "diproses", flagged: false, tanggal: "2026-06-24T09:12:00",
       timeline: [
         { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "24 Jun 2026, 09.12", done: true },
         { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "24 Jun 2026, 09.12", done: true },
@@ -64,17 +64,11 @@ function getReports() {
     },
     {
       ticket: "SRK-2026-0002",
-      nama: "Muhammad Fadhyl A. P.",
-      nim: "51024306",
-      anonim: false,
-      kategori: "Akademik",
-      jenis: "Aspirasi",
+      nama: "Muhammad Fadhyl A. P.", nim: "51024306", _ownerNim: "51024306",
+      anonim: false, kategori: "Akademik", jenis: "Aspirasi",
       judul: "Usul jadwal UTS lebih fleksibel",
       isi: "Mohon agar penjadwalan UTS dan UAS lebih diperhatikan supaya tidak ada mata kuliah yang bertabrakan waktunya.",
-      files: [],
-      status: "pending",
-      flagged: false,
-      tanggal: "2026-06-26T10:00:00",
+      files: [], status: "pending", flagged: false, tanggal: "2026-06-26T10:00:00",
       timeline: [
         { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "26 Jun 2026, 10.00", done: true },
         { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "26 Jun 2026, 10.00", done: true },
@@ -85,17 +79,11 @@ function getReports() {
     },
     {
       ticket: "SRK-2026-0003",
-      nama: "Muhammad Fadhyl A. P.",
-      nim: "51024306",
-      anonim: false,
-      kategori: "Fasilitas",
-      jenis: "Aduan",
+      nama: "Muhammad Fadhyl A. P.", nim: "51024306", _ownerNim: "51024306",
+      anonim: false, kategori: "Fasilitas", jenis: "Aduan",
       judul: "Wifi perpustakaan lambat saat jam ramai",
       isi: "Koneksi wifi di perpustakaan kerap melambat ketika banyak mahasiswa yang mengakses bersamaan, terutama jam siang.",
-      files: [],
-      status: "selesai",
-      flagged: false,
-      tanggal: "2026-06-18T08:30:00",
+      files: [], status: "selesai", flagged: false, tanggal: "2026-06-18T08:30:00",
       timeline: [
         { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "18 Jun 2026, 08.30", done: true },
         { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "18 Jun 2026, 08.30", done: true },
@@ -104,30 +92,164 @@ function getReports() {
         { label: "Tindak Lanjut Selesai", desc: "Wifi telah diperbaiki dan berfungsi normal", time: "26 Jun 2026, 16.00", done: true }
       ]
     },
+    // ── Laporan milik Syarifa Kurniah (51024351) ──────────────────
     {
-      ticket: "SRK-2026-0012",
-      nama: "Anonim",
-      nim: "",
-      anonim: true,
-      kategori: "Fasilitas",
-      jenis: "Aduan",
-      judul: "Komplain pelayanan staf akademik",
-      isi: "Pelayanan staf akademik kurang ramah dan lambat dalam merespon pertanyaan mahasiswa.",
-      files: [],
-      status: "pending",
-      flagged: true,
-      tanggal: "2026-06-27T13:20:00",
+      ticket: "SRK-2026-0004",
+      nama: "Syarifa Kurniah", nim: "51024351", _ownerNim: "51024351",
+      anonim: false, kategori: "Akademik", jenis: "Aspirasi",
+      judul: "Penambahan referensi buku di perpustakaan",
+      isi: "Mohon perpustakaan menambah koleksi buku referensi untuk mata kuliah Pemrograman Web dan Mobile, karena buku yang tersedia sangat terbatas dan sudah tidak relevan dengan kurikulum saat ini.",
+      files: [], status: "diproses", flagged: false, tanggal: "2026-06-20T10:15:00",
       timeline: [
-        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "27 Jun 2026, 13.20", done: true },
-        { label: "Lolos Pengecekan Sistem", desc: "Terdeteksi kata kurang pantas, ditandai untuk review manual", time: "27 Jun 2026, 13.20", done: true, active: true },
-        { label: "Direview oleh BEM", desc: "Menunggu peninjauan manual dari BEM", time: "Belum diproses", done: false },
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "20 Jun 2026, 10.15", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "20 Jun 2026, 10.15", done: true },
+        { label: "Direview oleh BEM", desc: "Laporan disetujui dan diteruskan ke Kemahasiswaan", time: "21 Jun 2026, 09.00", done: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Sedang dikaji oleh pihak perpustakaan", time: "Estimasi selesai: 1 minggu", done: false, active: true },
+        { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    {
+      ticket: "SRK-2026-0005",
+      nama: "Syarifa Kurniah", nim: "51024351", _ownerNim: "51024351",
+      anonim: false, kategori: "Layanan Kampus", jenis: "Saran",
+      judul: "Usul pembukaan kantin hingga malam hari",
+      isi: "Banyak mahasiswa yang mengikuti kelas malam tidak memiliki akses makanan karena kantin tutup sebelum jam 17.00. Mohon pertimbangkan untuk memperpanjang jam operasional kantin hingga pukul 20.00.",
+      files: [], status: "pending", flagged: false, tanggal: "2026-07-01T08:30:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "1 Jul 2026, 08.30", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "1 Jul 2026, 08.30", done: true },
+        { label: "Direview oleh BEM", desc: "Menunggu peninjauan dari BEM", time: "Belum diproses", done: false, active: true },
         { label: "Ditinjau Kemahasiswaan", desc: "Menunggu hasil review BEM", time: "Belum diproses", done: false },
         { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    // ── Laporan milik David Sanapang (51024304) ───────────────────
+    {
+      ticket: "SRK-2026-0006",
+      nama: "David Sanapang", nim: "51024304", _ownerNim: "51024304",
+      anonim: false, kategori: "Fasilitas", jenis: "Aduan",
+      judul: "Proyektor di ruang C2 sering mati mendadak",
+      isi: "Proyektor di ruang kelas C2 kerap mati tiba-tiba di tengah perkuliahan sehingga mengganggu proses belajar mengajar. Sudah terjadi lebih dari 5 kali dalam sebulan terakhir.",
+      files: [], status: "selesai", flagged: false, tanggal: "2026-06-10T13:00:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "10 Jun 2026, 13.00", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "10 Jun 2026, 13.00", done: true },
+        { label: "Direview oleh BEM", desc: "Laporan disetujui dan diteruskan ke Kemahasiswaan", time: "11 Jun 2026, 10.00", done: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Tim teknis telah memeriksa dan mengganti unit proyektor", time: "15 Jun 2026, 14.00", done: true },
+        { label: "Tindak Lanjut Selesai", desc: "Proyektor baru telah terpasang dan berfungsi normal", time: "20 Jun 2026, 09.00", done: true }
+      ]
+    },
+    {
+      ticket: "SRK-2026-0007",
+      nama: "David Sanapang", nim: "51024304", _ownerNim: "51024304",
+      anonim: false, kategori: "Akademik", jenis: "Saran",
+      judul: "Perlu diadakan workshop pemrograman tambahan",
+      isi: "Mengusulkan agar BEM bekerja sama dengan dosen mengadakan workshop pemrograman di luar jam kuliah, khususnya untuk topik React, Flutter, dan Laravel yang sangat dibutuhkan di dunia kerja saat ini.",
+      files: [], status: "diproses", flagged: false, tanggal: "2026-06-28T11:45:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "28 Jun 2026, 11.45", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "28 Jun 2026, 11.45", done: true },
+        { label: "Direview oleh BEM", desc: "Laporan disetujui, BEM akan menindaklanjuti", time: "29 Jun 2026, 09.30", done: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Sedang dalam koordinasi dengan program studi", time: "Estimasi selesai: 2 minggu", done: false, active: true },
+        { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    // ── Laporan milik Fernando Christian (51024004) ───────────────
+    {
+      ticket: "SRK-2026-0008",
+      nama: "Fernando Christian", nim: "51024004", _ownerNim: "51024004",
+      anonim: false, kategori: "Fasilitas", jenis: "Aduan",
+      judul: "Toilet lantai 2 gedung A tidak berfungsi",
+      isi: "Toilet di lantai 2 gedung A sudah lebih dari seminggu tidak bisa digunakan karena saluran air tersumbat. Mohon segera diperbaiki mengingat ini sangat mengganggu kenyamanan mahasiswa.",
+      files: [], status: "selesai", flagged: false, tanggal: "2026-06-15T07:50:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "15 Jun 2026, 07.50", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "15 Jun 2026, 07.50", done: true },
+        { label: "Direview oleh BEM", desc: "Laporan disetujui dan diteruskan ke bagian sarana prasarana", time: "15 Jun 2026, 14.00", done: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Tim sarana prasarana telah menangani perbaikan", time: "17 Jun 2026, 10.00", done: true },
+        { label: "Tindak Lanjut Selesai", desc: "Toilet sudah berfungsi normal kembali", time: "18 Jun 2026, 15.00", done: true }
+      ]
+    },
+    {
+      ticket: "SRK-2026-0009",
+      nama: "Fernando Christian", nim: "51024004", _ownerNim: "51024004",
+      anonim: false, kategori: "Layanan Kampus", jenis: "Aspirasi",
+      judul: "Pengadaan layanan konseling mahasiswa",
+      isi: "Mengusulkan agar kampus menyediakan layanan konseling psikologi bagi mahasiswa. Tekanan akademik yang tinggi membuat banyak mahasiswa membutuhkan dukungan mental yang profesional.",
+      files: [], status: "pending", flagged: false, tanggal: "2026-07-03T09:20:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "3 Jul 2026, 09.20", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "3 Jul 2026, 09.20", done: true },
+        { label: "Direview oleh BEM", desc: "Menunggu peninjauan dari BEM", time: "Belum diproses", done: false, active: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Menunggu hasil review BEM", time: "Belum diproses", done: false },
+        { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    // ── Laporan dari mahasiswa lain ───────────────────────────────
+    {
+      ticket: "SRK-2026-0010",
+      nama: "Rizky Pratama", nim: "51024210", _ownerNim: "51024210",
+      anonim: false, kategori: "Fasilitas", jenis: "Aduan",
+      judul: "Kursi ruang kelas B3 banyak yang rusak",
+      isi: "Banyak kursi di ruang B3 yang sudah rusak — patah atau goyang — sehingga tidak nyaman digunakan selama proses perkuliahan. Mohon segera diganti atau diperbaiki.",
+      files: [], status: "diproses", flagged: false, tanggal: "2026-07-05T08:00:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "5 Jul 2026, 08.00", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "5 Jul 2026, 08.00", done: true },
+        { label: "Direview oleh BEM", desc: "Laporan disetujui dan diteruskan ke sarana prasarana", time: "6 Jul 2026, 10.00", done: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Sedang dalam proses pengadaan kursi baru", time: "Estimasi: 3-5 hari kerja", done: false, active: true },
+        { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    {
+      ticket: "SRK-2026-0011",
+      nama: "Nurul Hidayah", nim: "51024088", _ownerNim: "51024088",
+      anonim: false, kategori: "Akademik", jenis: "Saran",
+      judul: "Mohon diadakan kelas tambahan sebelum UAS",
+      isi: "Sebagai persiapan menghadapi UAS, mohon dosen atau BEM bisa memfasilitasi kelas tambahan atau sesi tanya jawab khusus per mata kuliah agar mahasiswa lebih siap.",
+      files: [], status: "pending", flagged: false, tanggal: "2026-07-08T14:00:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "8 Jul 2026, 14.00", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "8 Jul 2026, 14.00", done: true },
+        { label: "Direview oleh BEM", desc: "Menunggu peninjauan dari BEM", time: "Belum diproses", done: false, active: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Menunggu hasil review BEM", time: "Belum diproses", done: false },
+        { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    {
+      ticket: "SRK-2026-0012",
+      nama: "Anonim", nim: "", _ownerNim: "",
+      anonim: true, kategori: "Layanan Kampus", jenis: "Aduan",
+      judul: "Pelayanan staf akademik kurang responsif",
+      isi: "Pelayanan staf akademik kurang ramah dan lambat dalam merespon pertanyaan mahasiswa terkait administrasi.",
+      files: [], status: "pending", flagged: false, tanggal: "2026-06-27T13:20:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "27 Jun 2026, 13.20", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "27 Jun 2026, 13.20", done: true },
+        { label: "Direview oleh BEM", desc: "Menunggu peninjauan dari BEM", time: "Belum diproses", done: false, active: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Menunggu hasil review BEM", time: "Belum diproses", done: false },
+        { label: "Tindak Lanjut Selesai", desc: "Menunggu keputusan akhir", time: "Belum diproses", done: false }
+      ]
+    },
+    {
+      ticket: "SRK-2026-0013",
+      nama: "Anonim", nim: "", _ownerNim: "",
+      anonim: true, kategori: "Fasilitas", jenis: "Saran",
+      judul: "Penambahan colokan listrik di area lobi",
+      isi: "Area lobi kampus sangat ramai digunakan mahasiswa untuk belajar mandiri, namun colokan listrik sangat sedikit. Mohon ditambahkan setidaknya 10 titik colokan di area lobi.",
+      files: [], status: "selesai", flagged: false, tanggal: "2026-06-05T10:00:00",
+      timeline: [
+        { label: "Laporan Dikirim", desc: "Aspirasi berhasil masuk ke sistem SUARAKU", time: "5 Jun 2026, 10.00", done: true },
+        { label: "Lolos Pengecekan Sistem", desc: "Tidak ditemukan kata kasar atau konten tidak pantas", time: "5 Jun 2026, 10.00", done: true },
+        { label: "Direview oleh BEM", desc: "Laporan disetujui dan diteruskan ke sarana prasarana", time: "6 Jun 2026, 09.00", done: true },
+        { label: "Ditinjau Kemahasiswaan", desc: "Tim teknis telah melakukan pemasangan colokan tambahan", time: "12 Jun 2026, 11.00", done: true },
+        { label: "Tindak Lanjut Selesai", desc: "12 titik colokan baru telah terpasang di area lobi", time: "15 Jun 2026, 14.00", done: true }
       ]
     }
   ];
 
   localStorage.setItem(LS_REPORTS, JSON.stringify(seed));
+  localStorage.setItem(LS_SEED_VER, String(SEED_VERSION));
   return seed;
 }
 
@@ -190,8 +312,6 @@ function labelForStatus(status) {
 
 function containsBadWord(text) {
   const lower = text.toLowerCase();
-  // Gunakan regex untuk mencocokkan kata utuh agar tidak terlalu ketat
-  // Contoh: "masukan" tidak akan terdeteksi sebagai "asu"
   return BAD_WORDS.some(word => {
     const regex = new RegExp(`\\b${word}\\b`, 'i');
     return regex.test(lower);
@@ -219,7 +339,6 @@ function switchRole(role) {
   const btnBem = document.getElementById("btnRoleBem");
   const formMhs = document.getElementById("formLoginMahasiswa");
   const formBem = document.getElementById("formLoginBem");
-  const demoNote = document.getElementById("demoNote");
   const warning = document.getElementById("loginWarning");
 
   if (warning) warning.classList.remove("show");
@@ -275,7 +394,6 @@ function handleLogout() {
   window.location.href = "index.html";
 }
 
-/* Quick fill demo akun di login.html */
 document.addEventListener("DOMContentLoaded", () => {
   const quickFillLink = document.getElementById("quickFillLink");
   if (quickFillLink) {
@@ -317,7 +435,6 @@ function toggleAnonim() {
 
 function handleFileSelect(event) {
   const files = Array.from(event.target.files);
-  const preview = document.getElementById("uploadPreview");
 
   files.forEach(file => {
     if (file.size > 5 * 1024 * 1024) {
@@ -361,7 +478,6 @@ function handleSubmitAspirasi(event) {
     return;
   }
 
-  // Cek kata kasar di judul & isi
   if (containsBadWord(judul) || containsBadWord(isi)) {
     warningBox.classList.add("show");
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -387,7 +503,7 @@ function handleSubmitAspirasi(event) {
       reports[rIndex].nim = isAnonim ? "" : document.getElementById("nimForm").value.trim();
       reports[rIndex].kategori = kategoriEl.value;
       reports[rIndex].jenis = jenisEl.value;
-      
+
       saveReports(reports);
       sessionStorage.removeItem("edit_ticket_id");
       showToast("Perubahan berhasil disimpan", "success");
@@ -403,7 +519,7 @@ function handleSubmitAspirasi(event) {
     ticket: ticket,
     nama: isAnonim ? "Anonim" : document.getElementById("namaLengkap").value.trim(),
     nim: isAnonim ? "" : document.getElementById("nimForm").value.trim(),
-    _ownerNim: session ? session.nim : "", // Track owner for personal history
+    _ownerNim: session ? session.nim : "",
     anonim: isAnonim,
     kategori: kategoriEl.value,
     jenis: jenisEl.value,
@@ -422,33 +538,30 @@ function handleSubmitAspirasi(event) {
     ]
   };
 
-  // --- LOGIKA UNDO 10 DETIK ---
   const undoModal = document.getElementById("undoSubmitModal");
   const progressBar = document.getElementById("undoProgressBar");
   const undoBtn = document.getElementById("undoSubmitBtn");
-  
+
   undoModal.classList.add("show");
   progressBar.style.width = "100%";
-  
-  // Start transition for visual feedback
+
   setTimeout(() => {
     progressBar.style.width = "0%";
   }, 10);
-  
+
   let isCancelled = false;
-  
+
   const submitTimeout = setTimeout(() => {
     if (!isCancelled) {
       reports.push(newReport);
       saveReports(reports);
       undoModal.classList.remove("show");
-      
-      // Tampilkan modal sukses
+
       document.getElementById("modalTicketCode").textContent = ticket;
       document.getElementById("successModal").classList.add("show");
     }
   }, 10000);
-  
+
   undoBtn.onclick = () => {
     isCancelled = true;
     clearTimeout(submitTimeout);
@@ -523,7 +636,6 @@ function handleTrackTicket() {
   });
 }
 
-  // Auto-track kalau ada parameter ?ticket= di URL (opsional, dipanggil dari dashboard)
 document.addEventListener("DOMContentLoaded", () => {
   const ticketInput = document.getElementById("ticketInput");
   if (ticketInput) {
@@ -535,7 +647,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Update tracking nav actions
   const navActions = document.getElementById("trackingNavActions");
   const session = getSession();
   if (navActions && session) {
@@ -554,10 +665,8 @@ function renderPublicReports() {
   const session = getSession();
   const reports = getReports();
 
-  // Tampilkan aspirasi mahasiswa lain (kecuali milik sendiri)
   const publicReports = reports.filter(r => {
     if (session && session.role === "mahasiswa") {
-      // Bukan milik sendiri (cek NIM non-anonim dan _ownerNim anonim)
       const isMine = (r._ownerNim && r._ownerNim === session.nim) || (!r.anonim && !r._ownerNim && r.nim === session.nim);
       return !isMine;
     }
@@ -600,14 +709,10 @@ function renderMyReports(filter = "semua") {
   const session = getSession();
   const reports = getReports();
 
-  // Filter laporan milik sendiri: cek apakah NIM laporan sama dengan NIM session, 
-  // atau jika anonim, cek apakah NIM pemilik asli (_ownerNim) sama dengan NIM session.
   let myReports = [];
   if (session && session.role === "mahasiswa") {
     myReports = reports.filter(r => {
-      // Utamakan _ownerNim (tersimpan saat submit, berlaku untuk anonim maupun tidak)
       if (r._ownerNim && r._ownerNim === session.nim) return true;
-      // Fallback: laporan lama tanpa _ownerNim, cek NIM langsung
       if (!r.anonim && r.nim === session.nim) return true;
       return false;
     });
@@ -657,7 +762,6 @@ function renderMyReports(filter = "semua") {
     listEl.appendChild(div);
   });
 
-  // Update stat cards
   setStatIfExists("myStatTotal", myReports.length);
   setStatIfExists("myStatPending", myReports.filter(r => r.status === "pending").length);
   setStatIfExists("myStatProcess", myReports.filter(r => r.status === "diproses").length);
@@ -816,7 +920,7 @@ function handleReject(ticketId) {
 
 function renderLandingStats() {
   const statTotal = document.getElementById("statTotal");
-  if (!statTotal) return; // bukan di landing page
+  if (!statTotal) return;
 
   const reports = getReports();
   const total = reports.length;
@@ -837,20 +941,19 @@ function renderLandingStats() {
 function showConfirmModal(title, desc, onConfirm) {
   const modal = document.getElementById("confirmModal");
   if (!modal) return;
-  
+
   document.getElementById("confirmTitle").textContent = title;
   document.getElementById("confirmDesc").textContent = desc;
-  
+
   const btn = document.getElementById("confirmBtn");
-  // Clone to remove old event listeners
   const newBtn = btn.cloneNode(true);
   btn.parentNode.replaceChild(newBtn, btn);
-  
+
   newBtn.onclick = () => {
     onConfirm();
     closeConfirmModal();
   };
-  
+
   modal.classList.add("show");
 }
 
@@ -861,7 +964,7 @@ function closeConfirmModal() {
 
 function handleDeleteAspirasi(ticketId) {
   showConfirmModal(
-    "Hapus Aspirasi?", 
+    "Hapus Aspirasi?",
     `Apakah Anda yakin ingin menghapus aspirasi ${ticketId}? Tindakan ini tidak bisa dibatalkan.`,
     () => {
       const reports = getReports();
@@ -870,7 +973,7 @@ function handleDeleteAspirasi(ticketId) {
 
       reports.splice(index, 1);
       saveReports(reports);
-      
+
       showToast(`Aspirasi ${ticketId} berhasil dihapus`, "success");
       renderMyReports();
     }
@@ -897,7 +1000,6 @@ function handleEditAspirasi(ticketId) {
     return;
   }
 
-  // Simpan ticketId yang sedang diedit ke session sementara
   sessionStorage.setItem("edit_ticket_id", ticketId);
   window.location.href = "form-aspirasi.html?edit=true";
 }
@@ -909,37 +1011,26 @@ function handleCheckStatus(ticketId) {
   }, 1000);
 }
 
-// Logic untuk status Expired dan Reminder
 function processSystemAutomations() {
   const reports = getReports();
   const now = new Date();
   let changed = false;
-  let notifications = [];
 
   reports.forEach(r => {
     const createdDate = new Date(r.tanggal);
     const diffDays = Math.floor((now - createdDate) / (1000 * 60 * 60 * 24));
 
-    // 1. Expired: > 14 hari tidak direspon
     if (r.status === "pending" && diffDays > 14) {
       r.status = "expired";
       changed = true;
-      notifications.push({
-        title: "Aspirasi Kedaluwarsa",
-        desc: `Aspirasi ${r.ticket} otomatis diubah menjadi 'Tidak ditindaklanjuti' karena sudah lebih dari 14 hari.`,
-        time: "Baru saja"
-      });
     }
 
-    // 2. Reminder BEM: Pending > 3 hari
     if (r.status === "pending" && diffDays > 3 && !r._reminderSent) {
-      // Simulasi kirim notif ke BEM
       console.log(`REMINDER BEM: Ada laporan ${r.ticket} menunggu review > 3 hari`);
       r._reminderSent = true;
       changed = true;
     }
 
-    // 3. Escalate: Diproses > 7 hari
     if (r.status === "diproses" && diffDays > 7 && !r._escalated) {
       console.log(`ESCALATE: Laporan ${r.ticket} sudah diproses > 7 hari, eskalasi ke Ketua BEM`);
       r._escalated = true;
@@ -957,42 +1048,36 @@ function processSystemAutomations() {
    ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Jalankan automasi sistem
   processSystemAutomations();
 
-  // Landing page
   renderLandingStats();
 
-  // Dashboard mahasiswa
   if (document.getElementById("myReportsList")) {
     renderMyReports();
     renderPublicReports();
-    
-    // Tambahkan tombol "Cek di sini" jika ada laporan lama
+
     const reports = getReports();
     const session = getSession();
     const nim = session ? session.nim : "";
     const myReports = reports.filter(r => (r._ownerNim === nim) || (!r.anonim && !r._ownerNim && r.nim === nim));
     if (myReports.some(r => r.status === "pending" || r.status === "diproses")) {
-       const panelHeader = document.querySelector(".panel-header");
-       if (panelHeader) {
-         const btn = document.createElement("button");
-         btn.className = "btn btn-sm btn-outline";
-         btn.style.marginLeft = "auto";
-         btn.textContent = "Belum ada update? Cek di sini";
-         btn.onclick = () => handleCheckStatus('Semua');
-         panelHeader.appendChild(btn);
-       }
+      const panelHeader = document.querySelector(".panel-header");
+      if (panelHeader) {
+        const btn = document.createElement("button");
+        btn.className = "btn btn-sm btn-outline";
+        btn.style.marginLeft = "auto";
+        btn.textContent = "Belum ada update? Cek di sini";
+        btn.onclick = () => handleCheckStatus('Semua');
+        panelHeader.appendChild(btn);
+      }
     }
   }
 
-  // Dashboard BEM
   if (document.getElementById("bemReportsList")) {
     renderBemReports();
     updateBemStats();
   }
 
-  // Check if we are in edit mode for form-aspirasi
   if (window.location.pathname.includes("form-aspirasi.html")) {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('edit') === 'true') {
@@ -1009,12 +1094,11 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("namaLengkap").value = r.nama;
             document.getElementById("nimForm").value = r.nim;
           }
-          // Set kategori & jenis
           const catInput = document.querySelector(`input[name="kategori"][value="${r.kategori}"]`);
           if (catInput) catInput.checked = true;
           const typeInput = document.querySelector(`input[name="jenis"][value="${r.jenis}"]`);
           if (typeInput) typeInput.checked = true;
-          
+
           document.querySelector(".form-header h1").textContent = "Edit Aspirasi";
           document.querySelector(".btn-submit-aspirasi").textContent = "Simpan Perubahan";
         }
@@ -1022,6 +1106,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Inisialisasi data dummy paling awal (biar localStorage langsung terisi)
   getReports();
 });
