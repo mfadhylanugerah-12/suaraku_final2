@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUARAKU — Saluran Aspirasi Mahasiswa STMIK Kharisma Makassar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">S</span>
+        SUARAKU
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Beranda</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#fitur">Fitur</a>
+        <a href="#alur">Alur Sistem</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-primary" style="padding:10px 20px;">Masuk</a>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">
+          <span class="dot"></span>
+          Media Resmi STMIK Kharisma Makassar
+        </div>
+        <h1>Suaramu <span class="highlight">didengar</span>, kampus jadi lebih baik.</h1>
+        <p class="hero-desc">
+          SUARAKU adalah saluran resmi bagi mahasiswa untuk menyampaikan aspirasi, saran,
+          dan keluhan kampus secara terstruktur, transparan, dan bisa dipantau prosesnya.
+        </p>
+        <div class="hero-actions">
+          <a href="login.html" class="btn btn-primary">Masuk untuk Kirim & Lacak Aspirasi</a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num" id="statTotal">128</div>
+            <div class="hero-stat-label">Aspirasi Terkirim</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" id="statSelesai">94</div>
+            <div class="hero-stat-label">Telah Ditindaklanjuti</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">~3 hari</div>
+            <div class="hero-stat-label">Rata-rata Respon</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-card-title">Laporan Terbaru</span>
+            <span class="badge badge-process">Diproses</span>
+          </div>
+          <div class="hero-card-item">
+            <div class="hero-card-icon">🏫</div>
+            <div>
+              <div class="hero-card-item-title">AC ruang kelas lab 3 mati</div>
+              <div class="hero-card-item-sub">Fasilitas · Diteruskan ke Kemahasiswaan</div>
+            </div>
+          </div>
+          <div class="hero-card-item">
+            <div class="hero-card-icon">📚</div>
+            <div>
+              <div class="hero-card-item-title">Usul jadwal UTS lebih fleksibel</div>
+              <div class="hero-card-item-sub">Akademik · Sedang direview BEM</div>
+            </div>
+          </div>
+          <div class="hero-card-item">
+            <div class="hero-card-icon">✅</div>
+            <div>
+              <div class="hero-card-item-title">Wifi perpustakaan diperbaiki</div>
+              <div class="hero-card-item-sub">Fasilitas · Selesai ditindaklanjuti</div>
+            </div>
+          </div>
+        </div>
+<!-- Chip removed as requested -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MASALAH ===== -->
+  <section class="section" id="tentang">
+    <div class="container">
+      <span class="section-label">Masalahnya</span>
+      <h2 class="section-title">Aspirasi mahasiswa sering hilang di tengah jalan</h2>
+      <p class="section-desc">Tanpa media resmi, banyak suara mahasiswa yang tidak pernah benar-benar sampai ke pihak kampus.</p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-icon">💬</div>
+          <h3>Hanya lewat grup chat</h3>
+          <p>Aspirasi disampaikan secara informal sehingga mudah terlewat dan tidak terdokumentasi.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">📂</div>
+          <h3>Tidak ada media terpusat</h3>
+          <p>Laporan tersebar di berbagai tempat, menyulitkan proses pemantauan dan tindak lanjut.</p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">🙈</div>
+          <h3>Takut identitas diketahui</h3>
+          <p>Sebagian mahasiswa enggan menyampaikan pendapat karena khawatir akan konsekuensinya.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FITUR ===== -->
+  <section class="section section-alt" id="fitur">
+    <div class="container">
+      <span class="section-label">Solusinya</span>
+      <h2 class="section-title">Satu platform, semua kebutuhan aspirasi</h2>
+      <p class="section-desc">SUARAKU menghadirkan fitur lengkap untuk mahasiswa, BEM, dan pihak kampus.</p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🪪</div>
+          <h3>Login dengan NIM</h3>
+          <p>Akses cepat dan aman menggunakan NIM mahasiswa, tanpa proses registrasi yang rumit.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🕶️</div>
+          <h3>Mode Anonim</h3>
+          <p>Sampaikan aspirasi sensitif tanpa khawatir identitasmu diketahui pihak lain.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📎</div>
+          <h3>Upload Bukti Pendukung</h3>
+          <p>Lampirkan foto atau dokumen sebagai bukti pendukung laporan kamu.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🚦</div>
+          <h3>Lacak Status Real-time</h3>
+          <p>Pantau setiap tahap tindak lanjut laporan dari awal sampai selesai.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🛡️</div>
+          <h3>Filter Kata Kasar Otomatis</h3>
+          <p>Sistem otomatis menyaring konten tidak pantas sebelum diteruskan ke BEM.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Dashboard Informatif</h3>
+          <p>Statistik dan riwayat laporan tersaji rapi untuk mahasiswa maupun BEM.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ALUR SISTEM (SIGNATURE) ===== -->
+  <section class="section" id="alur">
+    <div class="container">
+      <span class="section-label">Alur Sistem</span>
+      <h2 class="section-title">Dari kamu, sampai ke pengambil keputusan</h2>
+      <p class="section-desc">Setiap aspirasi melewati tahapan yang jelas, sehingga prosesnya transparan dan bisa dipantau.</p>
+
+      <div class="flow-wrap">
+        <div class="flow-track">
+          <div class="flow-step">
+            <div class="flow-node">1</div>
+            <h4>Mahasiswa</h4>
+            <p>Mengirim aspirasi / aduan</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-node">2</div>
+            <h4>Sistem</h4>
+            <p>Cek otomatis kata kasar</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-node">3</div>
+            <h4>BEM</h4>
+            <p>Review &amp; filter laporan</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-node">4</div>
+            <h4>Kemahasiswaan</h4>
+            <p>Diteruskan untuk ditinjau</p>
+          </div>
+          <div class="flow-step final">
+            <div class="flow-node">✓</div>
+            <h4>Tindak Lanjut</h4>
+            <p>Ketua STMIK Kharisma</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATISTIK ===== -->
+  <section class="section section-alt">
+    <div class="container">
+      <span class="section-label">Statistik</span>
+      <h2 class="section-title">Dampak SUARAKU sejauh ini</h2>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num" id="stat1">128</div>
+          <div class="stat-label">Total Aspirasi</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat2">34</div>
+          <div class="stat-label">Sedang Diproses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat3">94</div>
+          <div class="stat-label">Telah Selesai</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">~3 hari</div>
+          <div class="stat-label">Rata-rata Respon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ASPIRASI POPULER ===== -->
+  <section class="section">
+    <div class="container">
+      <span class="section-label">Transparansi</span>
+      <h2 class="section-title">Aspirasi Populer Minggu Ini</h2>
+      <p class="section-desc">Beberapa laporan yang paling banyak mendapat dukungan dari mahasiswa lain.</p>
+
+      <div class="aspirasi-list" id="aspirasiPopulerList">
+        <div class="aspirasi-item">
+          <div class="aspirasi-item-left">
+            <span class="aspirasi-cat">Fasilitas</span>
+            <div>
+              <h4>Perbaikan AC di ruang kelas lantai 2</h4>
+              <p>Beberapa ruang kelas lantai 2 sudah lama tidak dingin, mengganggu kenyamanan belajar.</p>
+            </div>
+          </div>
+          <div class="aspirasi-meta">
+            <span class="badge badge-process">Diproses</span><br>👍 42 dukungan
+          </div>
+        </div>
+        <div class="aspirasi-item">
+          <div class="aspirasi-item-left">
+            <span class="aspirasi-cat">Akademik</span>
+            <div>
+              <h4>Jadwal UTS dan UAS sering bertabrakan</h4>
+              <p>Usulan agar penjadwalan ujian lebih diperhatikan supaya tidak ada mata kuliah yang bertabrakan.</p>
+            </div>
+          </div>
+          <div class="aspirasi-meta">
+            <span class="badge badge-pending">Menunggu</span><br>👍 35 dukungan
+          </div>
+        </div>
+        <div class="aspirasi-item">
+          <div class="aspirasi-item-left">
+            <span class="aspirasi-cat">Fasilitas</span>
+            <div>
+              <h4>Wifi perpustakaan lambat saat jam ramai</h4>
+              <p>Koneksi wifi di perpustakaan kerap melambat ketika banyak mahasiswa yang mengakses bersamaan.</p>
+            </div>
+          </div>
+          <div class="aspirasi-meta">
+            <span class="badge badge-done">Selesai</span><br>👍 28 dukungan
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="section" style="padding-top:0;">
+    <div class="cta-banner">
+      <h2>Punya aspirasi yang ingin disampaikan?</h2>
+      <p>Suaramu penting untuk perkembangan kampus. Sampaikan sekarang, pantau prosesnya secara transparan.</p>
+      <a href="login.html" class="btn btn-primary">Kirim Aspirasi Sekarang</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <span class="logo-mark">S</span>
+            SUARAKU
+          </div>
+          <p class="footer-desc">Saluran Umum Aspirasi, Rencana, &amp; Aduan Kampus — media resmi mahasiswa STMIK Kharisma Makassar.</p>
+        </div>
+          <div class="footer-col">
+          <h5>Navigasi</h5>
+          <ul>
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="login.html">Masuk / Login</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Pengelola</h5>
+          <ul>
+            <li><a href="#">BEM STMIK Kharisma</a></li>
+            <li><a href="#">Kemahasiswaan</a></li>
+            <li><a href="#">STMIK Kharisma Makassar</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 SUARAKU — STMIK Kharisma Makassar. Dibuat untuk tugas Pemrograman Web.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

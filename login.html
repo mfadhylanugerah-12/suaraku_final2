@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masuk — SUARAKU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Login page enhancements */
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f3460 100%);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .auth-page::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      top: -200px;
+      right: -200px;
+      border-radius: 50%;
+    }
+
+    .auth-page::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+      bottom: -100px;
+      left: -100px;
+      border-radius: 50%;
+    }
+
+    .auth-card {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 44px 40px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 28px;
+    }
+
+    .auth-logo .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #1d4ed8, #059669) !important;
+      color: #ffffff !important;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 22px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.35);
+      text-decoration: none;
+    }
+
+    .auth-logo .logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--text-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .auth-card h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin: 0 0 6px;
+      line-height: 1.2;
+    }
+
+    .auth-sub {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      margin: 0 0 24px;
+      line-height: 1.5;
+    }
+
+    .role-toggle {
+      display: flex;
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    .role-toggle button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 9px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-muted);
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .role-toggle button.active {
+      background: white;
+      color: var(--blue-deep);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .warning-box {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      display: none;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 13.5px;
+      color: #DC2626;
+    }
+    .warning-box.show { display: flex; }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: white;
+      transition: all 0.2s;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--blue-deep);
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+    }
+
+    .btn-block {
+      width: 100%;
+      padding: 13px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue-deep) 0%, #1d4ed8 100%);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(59,130,246,0.35);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0 16px;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E2E8F0;
+    }
+
+    .auth-divider span {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .auth-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 13.5px;
+      text-decoration: none;
+      margin-top: 18px;
+      transition: color 0.2s;
+    }
+
+    .auth-back:hover { color: var(--blue-deep); }
+
+    .login-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      color: #065f46;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      border: 1px solid #a7f3d0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-page">
+    <div class="auth-card">
+      <a href="index.html" class="auth-logo">
+        <span class="logo-mark" style="background:linear-gradient(135deg,#1d4ed8,#059669) !important; color:#fff !important; width:44px; height:44px; font-size:22px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:800; box-shadow:0 4px 12px rgba(59,130,246,.3);">S</span>
+        <span class="logo-text">SUARAKU</span>
+      </a>
+
+      <div style="text-align:center;"><div class="login-badge">🏫 STMIK Kharisma Makassar</div></div>
+
+      <h1>Selamat Datang</h1>
+      <p class="auth-sub">Saluran Umum Aspirasi, Rencana &amp; Aduan Kampus</p>
+
+      <!-- Toggle Role -->
+      <div class="role-toggle">
+        <button type="button" class="active" id="btnRoleMahasiswa" onclick="switchRole('mahasiswa')">🎓 Mahasiswa</button>
+        <button type="button" id="btnRoleBem" onclick="switchRole('bem')">⚡ BEM Admin</button>
+      </div>
+
+      <div class="warning-box" id="loginWarning">
+        <span>⚠️</span>
+        <span id="loginWarningText">NIM atau password salah. Coba lagi.</span>
+      </div>
+
+      <!-- Form Login Mahasiswa -->
+      <form id="formLoginMahasiswa" onsubmit="handleLoginMahasiswa(event)">
+        <div class="form-group">
+          <label for="nim">NIM</label>
+          <input type="text" id="nim" class="form-control" placeholder="Masukkan NIM kamu" required>
+        </div>
+        <div class="form-group">
+          <label for="passMahasiswa">Password</label>
+          <input type="password" id="passMahasiswa" class="form-control" placeholder="Masukkan password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Masuk sebagai Mahasiswa</button>
+      </form>
+
+      <!-- Form Login BEM -->
+      <form id="formLoginBem" onsubmit="handleLoginBem(event)" style="display:none;">
+        <div class="form-group">
+          <label for="usernameBem">Username Admin</label>
+          <input type="text" id="usernameBem" class="form-control" placeholder="Masukkan username admin" required>
+        </div>
+        <div class="form-group">
+          <label for="passBem">Password</label>
+          <input type="password" id="passBem" class="form-control" placeholder="Masukkan password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Masuk sebagai BEM</button>
+      </form>
+
+      <a href="index.html" class="auth-back">← Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

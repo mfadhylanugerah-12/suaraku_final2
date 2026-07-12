@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard BEM — SUARAKU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="dash-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-mark">S</span>
+        SUARAKU
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard-bem.html" class="active">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="dashboard-bem.html#moderasi">
+          <span class="nav-icon">🛡️</span> Moderasi
+        </a>
+        <a href="dashboard-bem.html#diteruskan">
+          <span class="nav-icon">📤</span> Diteruskan
+        </a>
+        <a href="index.html">
+          <span class="nav-icon">🌐</span> Beranda
+        </a>
+      </nav>
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="sidebarAvatarBem" style="background:var(--yellow); color:var(--gray-900);">BM</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="sidebarUserNameBem">Admin BEM</div>
+          <div class="sidebar-user-role">BEM STMIK Kharisma</div>
+        </div>
+        <button class="sidebar-logout" onclick="handleLogout()" title="Keluar">⏻</button>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="dash-main">
+      <div class="dash-topbar">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+          <h1>Dashboard BEM</h1>
+        </div>
+        <span class="badge badge-process">Admin Mode</span>
+      </div>
+
+      <div class="dash-content">
+
+        <!-- Stat Cards -->
+        <div class="dash-stat-grid">
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#FEF3C7; color:var(--status-pending);">📥</div>
+            </div>
+            <div class="dash-stat-num" id="bemStatMasuk">12</div>
+            <div class="dash-stat-label">Laporan Masuk</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#FEE2E2; color:var(--status-reject);">🚩</div>
+            </div>
+            <div class="dash-stat-num" id="bemStatFlagged">3</div>
+            <div class="dash-stat-label">Terdeteksi Kata Kasar</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#DBEAFE; color:var(--status-process);">📤</div>
+            </div>
+            <div class="dash-stat-num" id="bemStatForwarded">28</div>
+            <div class="dash-stat-label">Diteruskan ke Kampus</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#D1FAE5; color:var(--status-done);">✅</div>
+            </div>
+            <div class="dash-stat-num" id="bemStatDone">94</div>
+            <div class="dash-stat-label">Total Diselesaikan</div>
+          </div>
+        </div>
+
+        <!-- Moderasi: Laporan Masuk -->
+        <div class="panel" id="moderasi">
+          <div class="panel-header">
+            <h2>Laporan Masuk — Perlu Moderasi</h2>
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="semua" onclick="filterBemReports('semua', this)">Semua</button>
+            <button class="filter-tab" data-filter="flagged" onclick="filterBemReports('flagged', this)">🚩 Terflag</button>
+            <button class="filter-tab" data-filter="akademik" onclick="filterBemReports('akademik', this)">Akademik</button>
+            <button class="filter-tab" data-filter="fasilitas" onclick="filterBemReports('fasilitas', this)">Fasilitas</button>
+          </div>
+
+          <div id="bemReportsList">
+            <div class="report-item">
+              <div class="report-icon" style="background:#FEE2E2; color:var(--status-reject);">🚩</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>Komplain pelayanan staf akademik</h4>
+                  <span class="report-id">SRK-2026-0012</span>
+                </div>
+                <p class="report-desc">Fasilitas · Anonim · Terdeteksi kata kurang pantas, perlu ditinjau manual sebelum diteruskan.</p>
+                <div class="report-meta">
+                  <span>Dikirim: 27 Juni 2026</span>
+                  <span>Jenis: Aduan</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <button class="btn btn-sm btn-view" onclick="openReviewModal('SRK-2026-0012')">Lihat</button>
+                <button class="btn btn-sm btn-approve" onclick="handleApprove('SRK-2026-0012')">Setujui</button>
+                <button class="btn btn-sm btn-reject" onclick="handleReject('SRK-2026-0012')">Tolak</button>
+              </div>
+            </div>
+
+            <div class="report-item">
+              <div class="report-icon">📘</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>Usul jadwal UTS lebih fleksibel</h4>
+                  <span class="report-id">SRK-2026-0002</span>
+                </div>
+                <p class="report-desc">Akademik · Muhammad Fadhyl A. P. (51024306) · Lolos pengecekan otomatis.</p>
+                <div class="report-meta">
+                  <span>Dikirim: 26 Juni 2026</span>
+                  <span>Jenis: Aspirasi</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <button class="btn btn-sm btn-view" onclick="openReviewModal('SRK-2026-0002')">Lihat</button>
+                <button class="btn btn-sm btn-approve" onclick="handleApprove('SRK-2026-0002')">Setujui</button>
+                <button class="btn btn-sm btn-reject" onclick="handleReject('SRK-2026-0002')">Tolak</button>
+              </div>
+            </div>
+
+            <div class="report-item">
+              <div class="report-icon">🏫</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>AC ruang kelas lab 3 mati</h4>
+                  <span class="report-id">SRK-2026-0001</span>
+                </div>
+                <p class="report-desc">Fasilitas · Muhammad Fadhyl A. P. (51024306) · Lolos pengecekan otomatis.</p>
+                <div class="report-meta">
+                  <span>Dikirim: 24 Juni 2026</span>
+                  <span>Jenis: Aduan</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <button class="btn btn-sm btn-view" onclick="openReviewModal('SRK-2026-0001')">Lihat</button>
+                <span class="badge badge-process">Sudah Diteruskan</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="empty-state" id="bemReportsEmpty" style="display:none;">
+            <div class="empty-icon">📭</div>
+            <p>Tidak ada laporan pada kategori ini.</p>
+          </div>
+        </div>
+
+        <!-- Laporan Diteruskan -->
+        <div class="panel" id="diteruskan">
+          <div class="panel-header">
+            <h2>Riwayat Diteruskan ke Kemahasiswaan</h2>
+          </div>
+          <div id="bemForwardedList">
+            <div class="report-item">
+              <div class="report-icon" style="background:#D1FAE5; color:var(--status-done);">✅</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>Wifi perpustakaan lambat saat jam ramai</h4>
+                  <span class="badge badge-done">Selesai</span>
+                </div>
+                <p class="report-desc">SRK-2026-0003 · Diteruskan 19 Juni 2026 · Ditindaklanjuti Kemahasiswaan</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Review Laporan -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Detail Laporan</h3>
+        <button class="modal-close" onclick="closeReviewModal()">✕</button>
+      </div>
+      <div class="modal-detail-row">
+        <span>Kode Tiket</span>
+        <span id="reviewTicket">SRK-2026-0001</span>
+      </div>
+      <div class="modal-detail-row">
+        <span>Pengirim</span>
+        <span id="reviewPengirim">Muhammad Fadhyl A. P.</span>
+      </div>
+      <div class="modal-detail-row">
+        <span>Kategori</span>
+        <span id="reviewKategori">Fasilitas</span>
+      </div>
+      <div class="modal-detail-row">
+        <span>Jenis</span>
+        <span id="reviewJenis">Aduan</span>
+      </div>
+      <div class="modal-detail-row">
+        <span>Tanggal</span>
+        <span id="reviewTanggal">24 Juni 2026</span>
+      </div>
+      <p style="font-size:13.5px; font-weight:600; margin-top:16px; margin-bottom:8px;">Isi Laporan</p>
+      <p id="reviewIsi" style="font-size:14px; color:var(--gray-600); background:var(--gray-100); padding:14px; border-radius:var(--radius-sm);">
+        AC di ruang kelas lab 3 sudah 2 minggu tidak berfungsi, membuat ruangan sangat panas saat praktikum siang.
+      </p>
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <button class="btn btn-approve btn-block" onclick="handleApprove(document.getElementById('reviewTicket').textContent)">Setujui &amp; Teruskan</button>
+        <button class="btn btn-reject btn-block" onclick="handleReject(document.getElementById('reviewTicket').textContent)">Tolak</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

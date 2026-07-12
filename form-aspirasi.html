@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirim Aspirasi — SUARAKU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">S</span>
+        SUARAKU
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#fitur">Fitur</a>
+        <a href="index.html#alur">Alur Sistem</a>
+      </div>
+      <div class="nav-actions">
+        <a href="dashboard-mahasiswa.html" class="btn btn-outline" style="padding:10px 20px;">Dashboard</a>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="form-page">
+    <div class="container">
+      <div class="form-card">
+        <div class="form-header">
+          <h1>Kirim Aspirasi / Aduan</h1>
+          <p>Sampaikan aspirasi, saran, atau keluhanmu. Setiap laporan akan ditinjau oleh BEM sebelum diteruskan ke kampus.</p>
+        </div>
+
+        <div class="warning-box" id="badWordWarning">
+          <span>⚠️</span>
+          <span>Terdeteksi kata yang kurang pantas pada isi aspirasi. Silakan perbaiki sebelum mengirim.</span>
+        </div>
+
+        <form id="formAspirasi" onsubmit="handleSubmitAspirasi(event)">
+
+          <!-- Toggle Anonim -->
+          <div class="switch-row">
+            <div class="switch-row-text">
+              <strong>Kirim secara anonim</strong>
+              <span>Identitasmu tidak akan ditampilkan ke BEM maupun pihak kampus</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="modeAnonim" onchange="toggleAnonim()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Data Mahasiswa -->
+          <div id="dataMahasiswaSection">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="namaLengkap">Nama Lengkap</label>
+                <input type="text" id="namaLengkap" class="form-control" placeholder="Nama sesuai KTM" required>
+              </div>
+              <div class="form-group">
+                <label for="nimForm">NIM</label>
+                <input type="text" id="nimForm" class="form-control" placeholder="Contoh: 51024306" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kategori -->
+          <div class="form-group">
+            <label>Kategori Laporan</label>
+            <div class="category-grid">
+              <div class="category-option">
+                <input type="radio" name="kategori" id="katAkademik" value="Akademik">
+                <label for="katAkademik">📘 Akademik</label>
+              </div>
+              <div class="category-option">
+                <input type="radio" name="kategori" id="katFasilitas" value="Fasilitas">
+                <label for="katFasilitas">🏫 Fasilitas</label>
+              </div>
+              <div class="category-option">
+                <input type="radio" name="kategori" id="katLayanan" value="Layanan Kampus">
+                <label for="katLayanan">🛎️ Layanan Kampus</label>
+              </div>
+              <div class="category-option">
+                <input type="radio" name="kategori" id="katLainnya" value="Lainnya">
+                <label for="katLainnya">📝 Lainnya</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Jenis -->
+          <div class="form-group">
+            <label>Jenis Laporan</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" name="jenis" id="jenisAspirasi" value="Aspirasi" checked>
+                <label for="jenisAspirasi">💡 Aspirasi</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="jenis" id="jenisSaran" value="Saran">
+                <label for="jenisSaran">💬 Saran</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" name="jenis" id="jenisAduan" value="Aduan">
+                <label for="jenisAduan">⚠️ Aduan</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Judul -->
+          <div class="form-group">
+            <label for="judul">Judul Singkat</label>
+            <input type="text" id="judul" class="form-control" placeholder="Contoh: AC ruang kelas lab 3 mati" required>
+          </div>
+
+          <!-- Isi -->
+          <div class="form-group">
+            <label for="isiAspirasi">Isi Aspirasi / Aduan <span class="hint">Jelaskan detail laporanmu</span></label>
+            <textarea id="isiAspirasi" class="form-control" placeholder="Tuliskan laporanmu secara jelas dan sopan..." required></textarea>
+          </div>
+
+          <!-- Upload Bukti -->
+          <div class="form-group">
+            <label>Upload Bukti Pendukung <span class="hint">Opsional</span></label>
+            <div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
+              <div class="upload-icon">📎</div>
+              <p>Tarik file ke sini atau <span class="upload-link">pilih file</span></p>
+              <p style="font-size:12px; margin-top:4px;">JPG, PNG, atau PDF — maks. 5MB</p>
+            </div>
+            <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" multiple style="display:none;" onchange="handleFileSelect(event)">
+            <div class="upload-preview" id="uploadPreview"></div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Kirim Aspirasi</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Sukses -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>✅ Aspirasi Terkirim!</h3>
+        <button class="modal-close" onclick="closeSuccessModal()">✕</button>
+      </div>
+      <p style="color: var(--gray-600); font-size: 14.5px; margin-bottom: 20px;">
+        Laporanmu berhasil dikirim dan sedang menunggu review dari BEM. Gunakan kode tiket di bawah untuk melacak status laporanmu.
+      </p>
+      <div class="modal-detail-row">
+        <span>Kode Tiket</span>
+        <span id="modalTicketCode">SRK-2026-0001</span>
+      </div>
+      <div class="modal-detail-row">
+        <span>Status</span>
+        <span>Menunggu Review</span>
+      </div>
+      <a href="tracking.html" class="btn btn-primary btn-block" style="margin-top:24px;">Lacak Status Laporan</a>
+      <a href="dashboard-mahasiswa.html" class="btn btn-outline btn-block" style="margin-top:10px;">Kembali ke Dashboard</a>
+    </div>
+  </div>
+
+    <!-- Modal Konfirmasi Kustom -->
+  <div class="modal-overlay confirm-modal" id="confirmModal">
+    <div class="modal-box">
+      <div class="confirm-icon">⚠️</div>
+      <h3 class="confirm-title" id="confirmTitle">Konfirmasi</h3>
+      <p class="confirm-desc" id="confirmDesc">Apakah Anda yakin ingin melakukan tindakan ini?</p>
+      <div class="confirm-actions">
+        <button class="btn btn-outline btn-block" onclick="closeConfirmModal()">Batal</button>
+        <button class="btn btn-primary btn-block" id="confirmBtn">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Undo Submit -->
+  <div class="modal-overlay confirm-modal" id="undoSubmitModal">
+    <div class="modal-box">
+      <div class="confirm-icon" style="background:var(--blue-pale); color:var(--blue-light);">⏳</div>
+      <h3 class="confirm-title">Mengirim Aspirasi...</h3>
+      <p class="confirm-desc">Aspirasimu akan dikirim dalam 10 detik. Kamu bisa membatalkannya sekarang jika ada kesalahan.</p>
+      <button class="btn btn-reject btn-block" id="undoSubmitBtn">Undo / Batalkan Pengiriman</button>
+      <div class="undo-progress-container">
+        <div class="undo-progress-bar" id="undoProgressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lacak Laporan — SUARAKU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">S</span>
+        SUARAKU
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#fitur">Fitur</a>
+        <a href="index.html#alur">Alur Sistem</a>
+      </div>
+      <div class="nav-actions" id="trackingNavActions">
+        <a href="login.html" class="btn btn-primary" style="padding:10px 20px;">Masuk</a>
+      </div>
+      <button class="nav-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="form-page">
+    <div class="container" style="max-width: 720px;">
+
+      <div class="form-header" style="margin-bottom: 24px;">
+        <h1>Lacak Status Laporan</h1>
+        <p>Masukkan kode tiket yang kamu terima saat mengirim aspirasi untuk melihat progres tindak lanjutnya.</p>
+      </div>
+
+      <div class="tracking-search">
+        <input type="text" id="ticketInput" class="form-control" placeholder="Contoh: SRK-2026-0001">
+        <button class="btn btn-primary" style="white-space:nowrap;" onclick="handleTrackTicket()">Lacak</button>
+      </div>
+
+      <div class="warning-box" id="ticketNotFound">
+        <span>⚠️</span>
+        <span>Kode tiket tidak ditemukan. Pastikan kode yang kamu masukkan sudah benar.</span>
+      </div>
+
+      <!-- Hasil Tracking -->
+      <div id="trackingResult" style="display:none;">
+        <div class="panel">
+          <div class="panel-header">
+            <h2 id="resultTitle">AC ruang kelas lab 3 mati</h2>
+            <span class="badge badge-process" id="resultBadge">Diproses</span>
+          </div>
+          <div class="modal-detail-row">
+            <span>Kode Tiket</span>
+            <span id="resultTicket">SRK-2026-0001</span>
+          </div>
+          <div class="modal-detail-row">
+            <span>Kategori</span>
+            <span id="resultKategori">Fasilitas</span>
+          </div>
+          <div class="modal-detail-row">
+            <span>Jenis</span>
+            <span id="resultJenis">Aduan</span>
+          </div>
+          <div class="modal-detail-row">
+            <span>Tanggal Dikirim</span>
+            <span id="resultTanggal">24 Juni 2026</span>
+          </div>
+          <div class="modal-detail-row">
+            <span>Pengirim</span>
+            <span id="resultPengirim">Anonim</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Progress Tindak Lanjut</h2>
+          </div>
+          <div class="timeline" id="resultTimeline">
+            <div class="timeline-step completed">
+              <h4>Laporan Dikirim</h4>
+              <p>Aspirasi berhasil masuk ke sistem SUARAKU</p>
+              <span class="timeline-time">24 Juni 2026, 09.12</span>
+            </div>
+            <div class="timeline-step completed">
+              <h4>Lolos Pengecekan Sistem</h4>
+              <p>Tidak ditemukan kata kasar atau konten tidak pantas</p>
+              <span class="timeline-time">24 Juni 2026, 09.12</span>
+            </div>
+            <div class="timeline-step completed">
+              <h4>Direview oleh BEM</h4>
+              <p>Laporan disetujui dan diteruskan ke Kemahasiswaan</p>
+              <span class="timeline-time">25 Juni 2026, 14.40</span>
+            </div>
+            <div class="timeline-step active">
+              <h4>Ditinjau Kemahasiswaan</h4>
+              <p>Sedang dalam proses peninjauan oleh pihak kampus</p>
+              <span class="timeline-time">Estimasi selesai: 2-3 hari</span>
+            </div>
+            <div class="timeline-step">
+              <h4>Tindak Lanjut Selesai</h4>
+              <p>Menunggu keputusan akhir dari Ketua STMIK Kharisma</p>
+              <span class="timeline-time">Belum diproses</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state default -->
+      <div class="panel empty-state" id="trackingEmptyState">
+        <div class="empty-icon">🔍</div>
+        <p>Masukkan kode tiket di atas untuk melihat status laporanmu.</p>
+      </div>
+
+      <div style="text-align:center; margin-top:20px;">
+        <a href="dashboard-mahasiswa.html" class="btn btn-outline" id="btnBackToDash" style="display:none;">Kembali ke Dashboard</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal Konfirmasi Kustom -->
+  <div class="modal-overlay confirm-modal" id="confirmModal">
+    <div class="modal-box">
+      <div class="confirm-icon">⚠️</div>
+      <h3 class="confirm-title" id="confirmTitle">Konfirmasi</h3>
+      <p class="confirm-desc" id="confirmDesc">Apakah Anda yakin ingin melakukan tindakan ini?</p>
+      <div class="confirm-actions">
+        <button class="btn btn-outline btn-block" onclick="closeConfirmModal()">Batal</button>
+        <button class="btn btn-primary btn-block" id="confirmBtn">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>

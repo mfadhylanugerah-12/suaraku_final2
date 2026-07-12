@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Mahasiswa — SUARAKU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="dash-layout">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-mark">S</span>
+        SUARAKU
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard-mahasiswa.html" class="active">
+          <span class="nav-icon">🏠</span> Dashboard
+        </a>
+        <a href="form-aspirasi.html">
+          <span class="nav-icon">✏️</span> Kirim Aspirasi
+        </a>
+        <a href="tracking.html">
+          <span class="nav-icon">🔍</span> Lacak Laporan
+        </a>
+        <a href="index.html">
+          <span class="nav-icon">🌐</span> Beranda
+        </a>
+      </nav>
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="sidebarAvatar">--</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="sidebarUserName">Memuat...</div>
+          <div class="sidebar-user-role" id="sidebarUserNim">NIM ...</div>
+        </div>
+        <button class="sidebar-logout" onclick="handleLogout()" title="Keluar">⏻</button>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="dash-main">
+      <div class="dash-topbar">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+          <h1>Dashboard Mahasiswa</h1>
+        </div>
+        <a href="form-aspirasi.html" class="btn btn-primary btn-sm" style="padding:10px 18px;">+ Aspirasi Baru</a>
+      </div>
+
+      <div class="dash-content">
+
+        <!-- Stat Cards -->
+        <div class="dash-stat-grid">
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:var(--blue-pale); color:var(--blue-deep);">📨</div>
+            </div>
+            <div class="dash-stat-num" id="myStatTotal">4</div>
+            <div class="dash-stat-label">Total Laporan</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#FEF3C7; color:var(--status-pending);">⏳</div>
+            </div>
+            <div class="dash-stat-num" id="myStatPending">1</div>
+            <div class="dash-stat-label">Menunggu Review</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#DBEAFE; color:var(--status-process);">🔄</div>
+            </div>
+            <div class="dash-stat-num" id="myStatProcess">2</div>
+            <div class="dash-stat-label">Sedang Diproses</div>
+          </div>
+          <div class="dash-stat-card">
+            <div class="dash-stat-top">
+              <div class="dash-stat-icon" style="background:#D1FAE5; color:var(--status-done);">✅</div>
+            </div>
+            <div class="dash-stat-num" id="myStatDone">1</div>
+            <div class="dash-stat-label">Selesai</div>
+          </div>
+        </div>
+
+        <!-- Notifikasi -->
+        <div class="panel" id="notifPanel">
+          <div class="panel-header">
+            <h2>🔔 Notifikasi Terbaru</h2>
+            <button class="link-btn" onclick="document.getElementById('notifPanel').style.display='none'">Tutup</button>
+          </div>
+          <div class="report-item">
+            <div class="report-icon">✅</div>
+            <div class="report-body">
+              <div class="report-top">
+                <h4>Laporan "Wifi perpustakaan lambat" telah diselesaikan</h4>
+                <span class="report-id">2 jam lalu</span>
+              </div>
+              <p class="report-desc">Pihak kampus telah menindaklanjuti dan memperbaiki koneksi wifi di perpustakaan.</p>
+            </div>
+          </div>
+          <div class="report-item">
+            <div class="report-icon">🔄</div>
+            <div class="report-body">
+              <div class="report-top">
+                <h4>Laporan "AC ruang kelas lab 3 mati" diteruskan ke Kemahasiswaan</h4>
+                <span class="report-id">1 hari lalu</span>
+              </div>
+              <p class="report-desc">BEM telah menyetujui laporanmu dan meneruskannya untuk ditinjau lebih lanjut.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aspirasi Mahasiswa Lain -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>📢 Aspirasi Mahasiswa Lain</h2>
+          </div>
+          <div id="publicReportsList">
+            <!-- Akan diisi via script.js -->
+          </div>
+          <div class="empty-state" id="publicReportsEmpty" style="display:none;">
+            <div class="empty-icon">📢</div>
+            <p>Belum ada aspirasi publik.</p>
+          </div>
+        </div>
+
+        <!-- Riwayat Laporan -->
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Riwayat Laporan Saya</h2>
+          </div>
+
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="semua" onclick="filterMyReports('semua', this)">Semua</button>
+            <button class="filter-tab" data-filter="pending" onclick="filterMyReports('pending', this)">Menunggu</button>
+            <button class="filter-tab" data-filter="diproses" onclick="filterMyReports('diproses', this)">Diproses</button>
+            <button class="filter-tab" data-filter="selesai" onclick="filterMyReports('selesai', this)">Selesai</button>
+          </div>
+
+          <div id="myReportsList">
+            <div class="report-item">
+              <div class="report-icon">🏫</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>AC ruang kelas lab 3 mati</h4>
+                  <span class="badge badge-process">Diproses</span>
+                </div>
+                <p class="report-desc">Fasilitas · SRK-2026-0001 · Dikirim 24 Juni 2026</p>
+                <div class="report-meta">
+                  <span>Kategori: Fasilitas</span>
+                  <span>Jenis: Aduan</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <a href="tracking.html" class="btn btn-sm btn-view">Lacak</a>
+              </div>
+            </div>
+
+            <div class="report-item">
+              <div class="report-icon">📚</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>Usul jadwal UTS lebih fleksibel</h4>
+                  <span class="badge badge-pending">Menunggu</span>
+                </div>
+                <p class="report-desc">Akademik · SRK-2026-0002 · Dikirim 26 Juni 2026</p>
+                <div class="report-meta">
+                  <span>Kategori: Akademik</span>
+                  <span>Jenis: Aspirasi</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <a href="tracking.html" class="btn btn-sm btn-view">Lacak</a>
+              </div>
+            </div>
+
+            <div class="report-item">
+              <div class="report-icon">✅</div>
+              <div class="report-body">
+                <div class="report-top">
+                  <h4>Wifi perpustakaan lambat saat jam ramai</h4>
+                  <span class="badge badge-done">Selesai</span>
+                </div>
+                <p class="report-desc">Fasilitas · SRK-2026-0003 · Dikirim 18 Juni 2026</p>
+                <div class="report-meta">
+                  <span>Kategori: Fasilitas</span>
+                  <span>Jenis: Aduan</span>
+                </div>
+              </div>
+              <div class="report-actions">
+                <a href="tracking.html" class="btn btn-sm btn-view">Lacak</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty state, disembunyikan default -->
+          <div class="empty-state" id="myReportsEmpty" style="display:none;">
+            <div class="empty-icon">📭</div>
+            <p>Belum ada laporan pada kategori ini.</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Konfirmasi Kustom -->
+  <div class="modal-overlay confirm-modal" id="confirmModal">
+    <div class="modal-box">
+      <div class="confirm-icon">⚠️</div>
+      <h3 class="confirm-title" id="confirmTitle">Konfirmasi</h3>
+      <p class="confirm-desc" id="confirmDesc">Apakah Anda yakin ingin melakukan tindakan ini?</p>
+      <div class="confirm-actions">
+        <button class="btn btn-outline btn-block" onclick="closeConfirmModal()">Batal</button>
+        <button class="btn btn-primary btn-block" id="confirmBtn">Ya, Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Undo Submit -->
+  <div class="modal-overlay confirm-modal" id="undoSubmitModal">
+    <div class="modal-box">
+      <div class="confirm-icon" style="background:var(--blue-pale); color:var(--blue-light);">⏳</div>
+      <h3 class="confirm-title">Mengirim Aspirasi...</h3>
+      <p class="confirm-desc">Aspirasimu akan dikirim dalam 10 detik. Kamu bisa membatalkannya sekarang jika ada kesalahan.</p>
+      <button class="btn btn-reject btn-block" id="undoSubmitBtn">Undo / Batalkan Pengiriman</button>
+      <div class="undo-progress-container">
+        <div class="undo-progress-bar" id="undoProgressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+  <script>
+    // Init: isi info user dari session
+    (function() {
+      var sess = getSession();
+      if (!sess || sess.role !== "mahasiswa") {
+        window.location.href = "login.html";
+        return;
+      }
+      var nama = sess.nama || "Mahasiswa";
+      var nim  = sess.nim  || "";
+      document.getElementById("sidebarUserName").textContent = nama;
+      document.getElementById("sidebarUserNim").textContent = "NIM " + nim;
+      // Avatar: ambil inisial 2 huruf
+      var parts = nama.split(" ");
+      var initials = parts.length >= 2 
+        ? (parts[0][0] + parts[1][0]).toUpperCase()
+        : nama.substring(0,2).toUpperCase();
+      document.getElementById("sidebarAvatar").textContent = initials;
+    })();
+  </script>
+</body>
+</html>
