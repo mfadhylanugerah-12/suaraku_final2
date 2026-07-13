@@ -12,7 +12,6 @@ const DUMMY_MAHASISWA_LIST = [
   { nim: "51024351", password: "Syarifa_Kurniah",  nama: "Syarifa Kurniah" },
   { nim: "51024304", password: "David_Sanapang",   nama: "David Sanapang" },
   { nim: "51024004", password: "Fernando_Christian", nama: "Fernando Christian" }
-  { nim: "51024000", password: "admin", nama: "User" }
 ];
 
 const DUMMY_BEM = {
